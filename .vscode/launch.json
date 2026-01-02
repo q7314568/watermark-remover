@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug CLI (Watermark Remover)",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=watermark-remover",
+                    "--package=watermark-remover"
+                ],
+                "filter": {
+                    "name": "watermark-remover",
+                    "kind": "bin"
+                }
+            },
+            "args": [
+                "--input",
+                "${workspaceFolder}/test_images/test_input.jpg",
+                "--output",
+                "${workspaceFolder}/test_images/debug_output.jpg",
+                "--verbose"
+            ],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Tauri App",
+            "preLaunchTask": "ui:dev",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--manifest-path=./src-tauri/Cargo.toml"
+                ],
+                "filter": {
+                    "name": "app",
+                    "kind": "bin"
+                }
+            },
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS": "--remote-debugging-port=9222"
+            }
+        }
+    ]
+}
